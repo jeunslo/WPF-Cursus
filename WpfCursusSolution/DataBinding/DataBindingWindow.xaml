@@ -1,0 +1,36 @@
+﻿<Window x:Class="DataBinding.DataBindingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
+        Title="DataBindingWindow" Height="350" Width="600">
+    <Window.Resources>
+        <Style x:Key="baseControlStijl" TargetType="{x:Type Control}">
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="Margin" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Arial"></Setter>
+            <Setter Property="Height" Value="24"></Setter>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10">
+            <TextBox Name="grootteTextBox" Style="{StaticResource baseControlStijl}" Width="30" HorizontalAlignment="Left" Text="{Binding ElementName=grootteSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Slider Name="grootteSlider" Style="{StaticResource baseControlStijl}" Width="200" Minimum="0" Maximum="96" IsSnapToTickEnabled="True" SmallChange="1" Value="12"></Slider>
+            <ComboBox Name="lettertypeComboBox" Width="180" Style="{StaticResource baseControlStijl}" DataContext="{x:Static Member=Fonts.SystemFontFamilies}" ItemsSource="{Binding}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontFamily="{Binding}" Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock Margin="10" FontFamily="{Binding ElementName=lettertypeComboBox, Path=SelectedValue}" FontSize="{Binding ElementName=grootteSlider, Path=Value}" Text="Tekst"></TextBlock>
+        <StackPanel Name="veranderPanel" Orientation="Horizontal" Margin="10">
+            <TextBox Name="veranderTextBox" Width="100" Height="30" Margin="10" Text="{Binding Path=Naam}"></TextBox>
+            <Button Name="veranderButton" Content="verander" Margin="10" Click="veranderButton_Click"></Button>
+            <Button Name="toonNaamButton" Margin="10" Content="toon naam" Click="toonNaamButton_Click"></Button>
+            <TextBox Name="weddeTextBox" Margin="10" Width="75" Text="{Binding Path=Wedde, StringFormat=C, ConverterCulture={x:Static global:CultureInfo.CurrentCulture}}"/>
+            <TextBox Name="datumTextBox" Margin="10" Width="130" Text="{Binding Path=InDienst, StringFormat=d, ConverterCulture={x:Static global:CultureInfo.CurrentCulture}}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,110 @@
+﻿<Window x:Class="Test.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:gala="http://www.galasoft.ch/mvvmlight"
+        xmlns:local="clr-namespace:Test.ViewModel"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:BoolToBold x:Key="boolToBold"></local:BoolToBold>
+        <local:BoolToItalic x:Key="boolToItalic"></local:BoolToItalic>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <ToolBar Height="50" DockPanel.Dock="Top">
+            <ToolBar.Resources>
+                <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" />
+                <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
+            </ToolBar.Resources>
+            <ToggleButton Name="BoldButton" Height="30" Margin="10 0" BorderBrush="Black">
+                <Image Source="pack://application:,,,/Images/bold.png"></Image>
+            </ToggleButton>
+            <ToggleButton Name="ItalicButton" Height="30" Margin="10 0" BorderBrush="Black">
+                <Image Source="pack://application:,,,/Images/italic.png"></Image>
+            </ToggleButton>
+            <ToggleButton Name="togglesButton" Height="30" Width="30" Margin="10 0" BorderBrush="Black"/>
+            <Button Name="buttoon" Height="30" Width="30" Margin="10 0" BorderBrush="Black"/>
+        </ToolBar>
+        <StatusBar Height="50" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"></StatusBar>
+        <StackPanel Orientation="Vertical">
+            <Button Name="button" Height="30" Width="30" Margin="10 10" BorderBrush="Black" Content="But"/>
+            <ToggleButton Name="troggleButton" Height="30" Margin="10 0" BorderBrush="Black"/>
+            <Border BorderBrush="Black" BorderThickness="1" Height="50" Width="50" Margin="10 10">
+                <Image Name="BImage" Height="50" Width="50" Stretch="Fill" Source="pack://application:,,,/Images/italic.png" AllowDrop="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <gala:EventToCommand Command="{Binding Iimage_Drop}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseMove">
+                            <gala:EventToCommand Command="{Binding Iimage_MouseMove}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Height="100" Width="100" Margin="10 10">
+                <Image Name="EmptyImage" Stretch="Fill" Height="100" Width="100" Source="pack://application:,,,/Images/leeg33.jpg" AllowDrop="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <gala:EventToCommand Command="{Binding Iimage_Drop}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseMove">
+                            <gala:EventToCommand Command="{Binding Iimage_MouseMove}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+        </StackPanel>
+        <Button DockPanel.Dock="Bottom" Height="50" Width="100" VerticalAlignment="Bottom" Content="Reset image">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <gala:EventToCommand Command="{Binding ResetImageCommand}" PassEventArgsToCommand="True"></gala:EventToCommand> 
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <DockPanel DockPanel.Dock="Right">
+            <ListBox Height="80" Width="250" DockPanel.Dock="Top" VerticalAlignment="Top" ItemsSource="{Binding Path=FotoLijst}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="50">
+                            <Image Source="{Binding}" Stretch="Fill" Width="50" Height="50"></Image>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseMove">
+                        <gala:EventToCommand Command="{Binding Iimage_MouseMove}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+            <Border DockPanel.Dock="Bottom" Height="50" Width="50" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="1">
+                <Grid  Height="50" Width="50" Background="Transparent" AllowDrop="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <gala:EventToCommand Command="{Binding InBorder_Drop}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+            </Border>
+            <Border DockPanel.Dock="Bottom" Height="50" Width="50" VerticalAlignment="Center" BorderBrush="Black" BorderThickness="1">
+                <Image Name="BoundImg" Source="{Binding GridImg, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" Height="50" Width="50" AllowDrop="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Drop">
+                            <gala:EventToCommand Command="{Binding Iimage_Drop}" PassEventArgsToCommand="True"></gala:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+        </DockPanel>
+        <TextBlock Name="Textbox" FontSize="20"
+                   FontWeight="{Binding ElementName=BoldButton, Path=IsChecked, Converter={StaticResource boolToBold}}"
+                   FontStyle="{Binding ElementName=ItalicButton, Path=IsChecked, Converter={StaticResource boolToItalic}}"
+                   DockPanel.Dock="Top" TextWrapping="Wrap">Dit is een voorbeeldtekst</TextBlock>
+    </DockPanel>
+</Window>

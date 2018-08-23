@@ -1,0 +1,58 @@
+﻿<Window x:Class="WpfCursus.PizzaBestellenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCursus"
+        mc:Ignorable="d"
+        Title="PizzaWindow" Height="400" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="330"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" Grid.Row="0" FontSize="30" TextAlignment="Left" Margin="175 10 0 10">Pizza bestellen</TextBlock>
+        <StackPanel Name="grootteKeuze" Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+            <RadioButton GroupName="grootte" Content="small" Margin="10 5 0 5"></RadioButton>
+            <RadioButton GroupName="grootte" Content="medium" Margin="10 5 0 5"></RadioButton>
+            <RadioButton GroupName="grootte" Content="large" Margin="10 5 0 5" IsChecked="True"></RadioButton>
+        </StackPanel>
+        <StackPanel Name="extras" Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+            <ToggleButton Name="toggleKorst" Content="extra dikke korst" HorizontalAlignment="Left" Width="200" Margin="0 10"></ToggleButton>
+            <ToggleButton Name="toggleKaas" Content="extra kaas" HorizontalAlignment="Left" Width="200"></ToggleButton>
+        </StackPanel>
+        <Canvas Grid.Column="0" Grid.Row="2">
+            <Rectangle Width="310" Fill="Black" Height="3" Canvas.Left="10" Canvas.Bottom="15"></Rectangle>
+        </Canvas>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+            <TextBlock VerticalAlignment="Center">hoeveelheid:</TextBlock>
+            <Label Name="hoeveelheidLabel" Margin="25 0" VerticalAlignment="Center" Content="1"></Label>
+            <StackPanel Orientation="Vertical">
+                <Button Click="Button_Click_1">+</Button>
+                <Button Click="Button_Click_2">-</Button>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Name="Ingredienten" Orientation="Vertical" Grid.Column="0" Grid.Row="3">
+            <CheckBox Content="tomaat" Margin="10 3 0 3" IsChecked="True" IsEnabled="False"></CheckBox>
+            <CheckBox Content="kaas" Margin="10 3 0 3" IsChecked="True" IsEnabled="False"></CheckBox>
+            <CheckBox Content="ham" Margin="10 3 0 3"></CheckBox>
+            <CheckBox Content="ananas" Margin="10 3 0 3"></CheckBox>
+            <CheckBox Content="salami" Margin="10 3 0 3"></CheckBox>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="3" Height="100" Width="80" Margin="75 5 0 5" HorizontalAlignment="Left" Click="Button_Click">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Images/pizza.jpg" Margin="5"></Image>
+                <Label FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center">BESTELLEN</Label>
+            </StackPanel>
+        </Button>
+        <Label Grid.ColumnSpan="2" Grid.Row="4" Margin="10" Name="opsommingsLabel"></Label>
+    </Grid>
+</Window>
